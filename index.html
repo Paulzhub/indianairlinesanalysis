@@ -1,258 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Indian Airlines Financial Dashboard</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Airline Analytics Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
-    <div class="dashboard-container">
-        <!-- Header Section -->
-        <header class="dashboard-header">
-            <div class="container">
-                <h1 class="dashboard-title">Indian Airlines Financial Dashboard</h1>
-                <p class="dashboard-subtitle">Performance Analysis & Projections (FY2020-FY2030)</p>
-
-                <!-- Key Metrics Summary -->
-                <div class="metrics-summary">
-                    <div class="metric-card indigo">
-                        <div class="metric-label">IndiGo</div>
-                        <div class="metric-value" id="indigo-revenue">₹0 Cr</div>
-                        <div class="metric-change positive" id="indigo-change">0%</div>
-                    </div>
-                    <div class="metric-card air-india">
-                        <div class="metric-label">Air India</div>
-                        <div class="metric-value" id="air-india-revenue">₹0 Cr</div>
-                        <div class="metric-change positive" id="air-india-change">0%</div>
-                    </div>
-                    <div class="metric-card spicejet">
-                        <div class="metric-label">SpiceJet</div>
-                        <div class="metric-value" id="spicejet-revenue">₹0 Cr</div>
-                        <div class="metric-change positive" id="spicejet-change">0%</div>
-                    </div>
-                    <div class="metric-card akasa">
-                        <div class="metric-label">Akasa Air</div>
-                        <div class="metric-value" id="akasa-revenue">₹0 Cr</div>
-                        <div class="metric-change positive" id="akasa-change">0%</div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- Navigation Tabs -->
-        <nav class="dashboard-nav">
-            <div class="container">
-                <div class="nav-tabs">
-                    <button class="nav-tab active" data-tab="overview">Overview</button>
-                    <button class="nav-tab" data-tab="revenue">Revenue Analysis</button>
-                    <button class="nav-tab" data-tab="profit">Profit Analysis</button>
-                    <button class="nav-tab" data-tab="projections">Future Projections</button>
-                    <button class="nav-tab" data-tab="insights">Industry Insights</button>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Main Content Area -->
-        <main class="dashboard-main">
-            <div class="container">
-                <!-- Controls Section -->
-                <div class="dashboard-controls">
-                    <div class="control-group">
-                        <label for="airline-select">Select Airlines:</label>
-                        <div class="custom-select">
-                            <div class="select-trigger" id="airline-trigger">
-                                <span>All Airlines Selected</span>
-                                <div class="arrow"></div>
-                            </div>
-                            <div class="options" id="airline-options">
-                                <label class="option">
-                                    <input type="checkbox" value="IndiGo" checked /> IndiGo
-                                </label>
-                                <label class="option">
-                                    <input type="checkbox" value="Air India" checked /> Air India
-                                </label>
-                                <label class="option">
-                                    <input type="checkbox" value="SpiceJet" checked /> SpiceJet
-                                </label>
-                                <label class="option">
-                                    <input type="checkbox" value="Akasa Air" checked /> Akasa Air
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label for="year-range">Year Range:</label>
-                        <select id="year-range" class="form-control">
-                            <option value="all">All Years (2020-2030)</option>
-                            <option value="historical">Historical (2020-2025)</option>
-                            <option value="projected">Projected (2026-2030)</option>
-                        </select>
-                    </div>
-                    <div class="control-group">
-                        <button id="export-btn" class="btn btn--secondary">Export Charts</button>
-                    </div>
-                </div>
-
-                <!-- Tab Content -->
-                <div class="tab-content">
-                    <!-- Overview Tab -->
-                    <div class="tab-pane active" id="overview-tab">
-                        <div class="chart-grid">
-                            <div class="chart-container">
-                                <h3>Revenue Trends (FY2020-FY2030)</h3>
-                                <div class="chart-wrapper" style="position: relative; height: 400px;">
-                                    <canvas id="overview-revenue-chart"></canvas>
-                                </div>
-                            </div>
-                            <div class="chart-container">
-                                <h3>Profit / Loss Trends (FY2020-FY2030)</h3>
-                                <div class="chart-wrapper" style="position: relative; height: 400px;">
-                                    <canvas id="overview-profit-chart"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Revenue Analysis Tab -->
-                    <div class="tab-pane" id="revenue-tab">
-                        <div class="chart-grid">
-                            <div class="chart-container full-width">
-                                <h3>Revenue Analysis</h3>
-                                <div class="chart-controls">
-                                    <button class="chart-toggle active" data-chart="line">Line Chart</button>
-                                    <button class="chart-toggle" data-chart="bar">Bar Chart</button>
-                                </div>
-                                <div class="chart-wrapper" style="position: relative; height: 500px;">
-                                    <canvas id="revenue-chart"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Profit Analysis Tab -->
-                    <div class="tab-pane" id="profit-tab">
-                        <div class="chart-grid">
-                            <div class="chart-container full-width">
-                                <h3>Profit / Loss Analysis</h3>
-                                <div class="chart-wrapper" style="position: relative; height: 500px;">
-                                    <canvas id="profit-chart"></canvas>
-                                </div>
-                            </div>
-                            <div class="profitability-analysis">
-                                <h4>Profitability Status</h4>
-                                <div class="status-grid">
-                                    <div class="status-item indigo">
-                                        <span class="airline-name">IndiGo</span>
-                                        <span class="status-badge profitable">Profitable (FY2024)</span>
-                                    </div>
-                                    <div class="status-item air-india">
-                                        <span class="airline-name">Air India</span>
-                                        <span class="status-badge loss-making">Loss-making</span>
-                                    </div>
-                                    <div class="status-item spicejet">
-                                        <span class="airline-name">SpiceJet</span>
-                                        <span class="status-badge loss-making">Loss-making</span>
-                                    </div>
-                                    <div class="status-item akasa">
-                                        <span class="airline-name">Akasa Air</span>
-                                        <span class="status-badge loss-making">Projected Profit FY2027</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Future Projections Tab -->
-                    <div class="tab-pane" id="projections-tab">
-                        <div class="projections-header">
-                            <h3>Future Projections (FY2026-FY2030)</h3>
-                            <p>Based on industry trends, company disclosures, and market analysis</p>
-                        </div>
-                        <div class="chart-grid">
-                            <div class="chart-container">
-                                <h4>Projected Revenue Growth</h4>
-                                <div class="chart-wrapper" style="position: relative; height: 400px;">
-                                    <canvas id="projected-revenue-chart"></canvas>
-                                </div>
-                            </div>
-                            <div class="chart-container">
-                                <h4>Projected Profit Recovery</h4>
-                                <div class="chart-wrapper" style="position: relative; height: 400px;">
-                                    <canvas id="projected-profit-chart"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="assumptions-panel">
-                            <h4>Key Assumptions</h4>
-                            <ul>
-                                <li>Domestic passenger traffic growth of 7 – 10% annually</li>
-                                <li>International traffic recovery with 15 – 20% growth</li>
-                                <li>Fuel cost stabilisation and operational efficiency gains</li>
-                                <li>Market expansion and fleet modernisation initiatives</li>
-                                <li>Akasa Air achieves break-even by FY2027</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Industry Insights Tab -->
-                    <div class="tab-pane" id="insights-tab">
-                        <div class="insights-grid">
-                            <div class="insight-card">
-                                <h4>Market Size</h4>
-                                <p>The Indian aviation market was valued at <strong>$16 billion in FY2025</strong> and is expected to reach <strong>$41 billion by FY2033</strong>.</p>
-                            </div>
-                            <div class="insight-card">
-                                <h4>Recovery Timeline</h4>
-                                <p>The sector is expected to report losses of <strong>₹20 – 30 billion in FY2025-FY2026</strong> before a sustained recovery.</p>
-                            </div>
-                            <div class="insight-card">
-                                <h4>Traffic Growth</h4>
-                                <p>Domestic air passenger traffic is projected to grow <strong>7 – 10% YoY</strong>.</p>
-                            </div>
-                            <div class="insight-card">
-                                <h4>International Recovery</h4>
-                                <p>International passenger volumes are forecast to grow <strong>15 – 20%</strong> annually in the medium term.</p>
-                            </div>
-                            <div class="insight-card">
-                                <h4>Global Position</h4>
-                                <p>India is poised to become the <strong>world’s third-largest aviation market</strong>.</p>
-                            </div>
-                        </div>
-
-                        <!-- Market Share Visualization -->
-                        <div class="market-share-section">
-                            <h3>Current Market Share (FY2024 Revenue)</h3>
-                            <div class="chart-wrapper" style="position: relative; height: 400px; width: 400px; margin: 0 auto;">
-                                <canvas id="market-share-chart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="dashboard-footer">
-            <div class="container">
-                <div class="footer-content">
-                    <div class="data-sources">
-                        <h4>Data Sources</h4>
-                        <p>Historical data from airline annual reports & regulatory filings. Projections derived from industry benchmarks and management guidance.</p>
-                    </div>
-                    <div class="methodology">
-                        <h4>Methodology</h4>
-                        <p>Projection models employ compound annual growth rates, capacity expansion plans, cost-optimisation strategies, and macroeconomic indicators to forecast future performance.</p>
-                    </div>
-                </div>
-                <div class="footer-note">
-                    <p>&copy; 2025 Indian Airlines Financial Dashboard. Data updated July 2025.</p>
-                </div>
-            </div>
-        </footer>
+  <header class="dashboard-header">
+    <div class="container flex justify-between items-center py-16">
+      <h1>Airline Analytics Dashboard</h1>
+      <nav class="nav-tabs flex gap-16">
+        <button class="nav-btn active" data-target="indian-section">Indian Airlines</button>
+        <button class="nav-btn" data-target="international-section">International Airlines</button>
+      </nav>
     </div>
+  </header>
 
-    <script src="app.js"></script>
+  <main class="container">
+    <!-- Indian Airlines Section -->
+    <section id="indian-section" class="section">
+      <!-- Financial Metrics Card Group -->
+      <h2 class="section-heading">Financial Metrics</h2>
+      <div class="card-grid">
+        <div class="card"><div class="card__body"><h3>Revenue Trend (₹ Crore)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="indianRevenueChart"></canvas></div></div></div>
+        <div class="card"><div class="card__body"><h3>Profit / Loss (₹ Crore)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="indianProfitChart"></canvas></div></div></div>
+        <div class="card"><div class="card__body"><h3>Operating Profit Margin (%)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="indianMarginChart"></canvas></div></div></div>
+      </div>
+
+      <!-- Operational Metrics Card Group -->
+      <h2 class="section-heading">Operational Metrics</h2>
+      <div class="card-grid">
+        <div class="card"><div class="card__body"><h3>On-Time Performance (%)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="indianOtpChart"></canvas></div></div></div>
+      </div>
+
+      <!-- Customer Satisfaction Metrics -->
+      <h2 class="section-heading">Customer Satisfaction Metrics</h2>
+      <div class="card-grid">
+        <div class="card"><div class="card__body"><h3>Net Promoter Score (2023-24)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="indianNpsChart"></canvas></div></div></div>
+        <div class="card"><div class="card__body"><h3>CSAT (2024)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="indianCsatChart"></canvas></div></div></div>
+        <div class="card"><div class="card__body"><h3>CES (2024)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="indianCesChart"></canvas></div></div></div>
+      </div>
+
+      <!-- Safety Metrics -->
+      <h2 class="section-heading">Safety Metrics (Global & Regional 2024)</h2>
+      <div class="card-grid">
+        <div class="card"><div class="card__body"><h3>Global vs Regional Accident Rates</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="safetyChart"></canvas></div></div></div>
+      </div>
+
+      <!-- Environmental Metrics -->
+      <h2 class="section-heading">Environmental Metrics</h2>
+      <div class="card-grid">
+        <div class="card"><div class="card__body"><h3>CO₂ Emissions (Million Tonnes)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="indianCo2Chart"></canvas></div></div></div>
+        <div class="card"><div class="card__body"><h3>SAF Usage (%)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="indianSafChart"></canvas></div></div></div>
+      </div>
+
+      <!-- Employee Metrics -->
+      <h2 class="section-heading">Employee Metrics</h2>
+      <div class="card-grid">
+        <div class="card"><div class="card__body"><h3>Attrition Rates (%)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="indianAttritionChart"></canvas></div></div></div>
+        <div class="card"><div class="card__body"><h3>Employee Satisfaction (Index)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="indianEmpSatChart"></canvas></div></div></div>
+      </div>
+    </section>
+
+    <!-- International Airlines Section -->
+    <section id="international-section" class="section hidden">
+      <!-- Financial Metrics Card Group -->
+      <h2 class="section-heading">Financial Metrics</h2>
+      <div class="card-grid">
+        <div class="card"><div class="card__body"><h3>Revenue Trend (US$ Million)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="intlRevenueChart"></canvas></div></div></div>
+        <div class="card"><div class="card__body"><h3>Profit / Loss (US$ Million)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="intlProfitChart"></canvas></div></div></div>
+        <div class="card"><div class="card__body"><h3>Operating Profit Margin (%)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="intlMarginChart"></canvas></div></div></div>
+      </div>
+
+      <!-- Operational Metrics Card Group -->
+      <h2 class="section-heading">Operational Metrics</h2>
+      <div class="card-grid">
+        <div class="card"><div class="card__body"><h3>On-Time Performance (%)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="intlOtpChart"></canvas></div></div></div>
+      </div>
+
+      <!-- Customer Satisfaction Metrics -->
+      <h2 class="section-heading">Customer Satisfaction Metrics</h2>
+      <div class="card-grid">
+        <div class="card"><div class="card__body"><h3>NPS (2024)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="intlNpsChart"></canvas></div></div></div>
+        <div class="card"><div class="card__body"><h3>CSAT (2024)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="intlCsatChart"></canvas></div></div></div>
+        <div class="card"><div class="card__body"><h3>CES (2024)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="intlCesChart"></canvas></div></div></div>
+      </div>
+
+      <!-- Safety Metrics -->
+      <h2 class="section-heading">Safety Metrics (Global & Regional 2024)</h2>
+      <div class="card-grid">
+        <div class="card"><div class="card__body"><h3>Global vs Regional Accident Rates</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="safetyChartIntl"></canvas></div></div></div>
+      </div>
+
+      <!-- Environmental Metrics -->
+      <h2 class="section-heading">Environmental Metrics</h2>
+      <div class="card-grid">
+        <div class="card"><div class="card__body"><h3>CO₂ Emissions (Million Tonnes)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="intlCo2Chart"></canvas></div></div></div>
+        <div class="card"><div class="card__body"><h3>SAF Usage (%)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="intlSafChart"></canvas></div></div></div>
+      </div>
+
+      <!-- Employee Metrics -->
+      <h2 class="section-heading">Employee Metrics</h2>
+      <div class="card-grid">
+        <div class="card"><div class="card__body"><h3>Attrition Rates (%)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="intlAttritionChart"></canvas></div></div></div>
+        <div class="card"><div class="card__body"><h3>Employee Satisfaction (Index)</h3><div class="chart-container" style="position:relative;height:400px"><canvas id="intlEmpSatChart"></canvas></div></div></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
 </body>
 </html>
